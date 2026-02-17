@@ -11,11 +11,15 @@ dependencies:
   flutter:
     sdk: flutter
   math_expressions: ^2.4.0
+  http: ^1.2.2
+  shared_preferences: ^2.3.2
 
   cupertino_icons: ^1.0.8
 
 dev_dependencies:
   flutter_test:
+    sdk: flutter
+  integration_test:
     sdk: flutter
   flutter_lints: ^3.0.1
 

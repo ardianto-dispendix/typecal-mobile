@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:math_expressions/math_expressions.dart';
 
 String eval(String expr) {
-  final parser = Parser();
+  final parser = ShuntingYardParser();
   final exp = parser.parse(expr);
   final cm = ContextModel();
   final value = exp.evaluate(EvaluationType.REAL, cm);

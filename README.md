@@ -1,46 +1,54 @@
-# Calc Mobile (Flutter)
+# TypeCal Mobile (Flutter)
 
-A minimal text-based calculator (Numi-like) for mobile, built with Flutter. Type a one-line expression like `1*2` and, when you add `=`, it computes immediately. Press Enter (Done) to commit the line to history. Each line is a separate equation.
+TypeCal Mobile is a notes-style calculator where you can type naturally and get inline results per line.
 
 ## Features
-- Single-line input; `=` triggers evaluation
-- Enter/Done commits to history
-- Shows result or an error inline
-- Supports common operators: `+ - * / ^ ( )`
+- Multi-line editor with inline result chips
+- Arithmetic expressions with variables (for example `price = 120*4`)
+- Currency conversion (for example `120 usd to idr`)
+- Unit conversion (for example `10 km to mi`)
+- Template menu for quick insertion:
+  - Math example
+  - Currency conversion
+  - Unit conversion
+  - Variable assignment
 
-## Getting Started
+## Prerequisites
+- Flutter SDK (3.38+ recommended)
+- Xcode (for iOS build/install)
 
-### Prerequisites
-- Flutter SDK (3.3+ recommended)
-- Xcode + iOS Simulator (for iPhone 15 testing)
-
-### Project setup
-If you don't see platform folders (ios/android), initialize them once:
-
+## Setup
 ```bash
-cd /Users/ardiantonugroho/calc-mobile
-flutter create .
 flutter pub get
 ```
 
-### Run on iPhone 15 simulator
-Start the iOS Simulator and select iPhone 15, then run:
-
+## Run
 ```bash
-open -a Simulator
-# If needed, choose iPhone 15 in Simulator's Window > Device
-flutter devices
-flutter run -d "iPhone 15"
+flutter run
 ```
 
-If `"iPhone 15"` doesn't resolve, pick the UDID from `flutter devices` and run `flutter run -d <UDID>`.
+## Run on specific device
+```bash
+flutter devices
+flutter run -d <DEVICE_ID>
+```
+
+## Install release build to iPhone (USB attached)
+```bash
+flutter clean
+flutter pub get
+flutter build ios --release
+flutter install -d <IPHONE_DEVICE_ID> --release --device-connection attached
+```
+
+## Quality checks
+```bash
+flutter analyze
+flutter test
+flutter test integration_test
+```
 
 ## Project Structure
-- `lib/main.dart`: App UI and evaluation logic
-- `pubspec.yaml`: Dependencies (uses `math_expressions`)
-- `test/`: Optional unit tests
-
-## Notes
-- Only one-line equations are supported.
-- Evaluation occurs only when `=` is present in the input.
-- History shows `expression` on the left and `result` (or error) on the right.
+- `lib/main.dart`: App UI and calculator/domain logic
+- `test/`: Unit and widget tests
+- `integration_test/`: End-to-end flows

@@ -11,15 +11,38 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:calc_mobile/main.dart';
 
 void main() {
-  testWidgets('CalcApp loads and shows input + result areas',
+  testWidgets('CalcApp loads and shows combined editor',
       (WidgetTester tester) async {
     await tester.pumpWidget(const CalcApp());
 
-    // Input + result areas exist
+    // Single editor area exists
     expect(find.byKey(const ValueKey('input_area')), findsOneWidget);
-    expect(find.byKey(const ValueKey('result_area')), findsOneWidget);
+    expect(find.byKey(const ValueKey('combined_editor')), findsOneWidget);
 
     // Input hint is present
-    expect(find.textContaining('Tap to type'), findsOneWidget);
+    expect(find.textContaining('Type naturally'), findsOneWidget);
+  });
+
+  testWidgets('Template popup menu uses dark surface styling',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(const CalcApp());
+
+    await tester.tap(find.byTooltip('Insert template'));
+    await tester.pumpAndSettle();
+
+    final menuEntry = find.text('Math example');
+    expect(menuEntry, findsOneWidget);
+
+    final popupMaterials = tester
+        .widgetList<Material>(
+          find.ancestor(of: menuEntry, matching: find.byType(Material)),
+        )
+        .toList();
+
+    expect(
+      popupMaterials
+          .any((material) => material.color == const Color(0xFF171D24)),
+      isTrue,
+    );
   });
 }
